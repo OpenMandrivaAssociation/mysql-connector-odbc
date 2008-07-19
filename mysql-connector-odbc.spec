@@ -1,11 +1,12 @@
 %define	rev r857
 %define	major 1
 %define libname	%mklibname myodbc %{major}
+%define develname %mklibname mydobc -d
 
 Summary:	ODBC driver for MySQL
-Name:		MyODBC
+Name:		mysql-connector-odbc
 Version:	3.51.22
-Release:	%mkrel 0.%{rev}.1
+Release:	%mkrel 0.%{rev}.2
 License:	Public Domain
 Group:		System/Libraries
 URL:		http://www.mysql.com/downloads/api-myodbc.html
@@ -17,10 +18,12 @@ Requires:	%{libname} = %{version}
 BuildRequires:	mysql-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	openssl-devel
-BuildRequires:	automake1.7
-BuildRequires:	autoconf2.5
+BuildRequires:	automake
+BuildRequires:	autoconf
 BuildRequires:  libltdl-devel
-BuildRequires:  libqt-devel
+BuildRequires:  qt3-devel
+Obsoletes:	MyODBC < %version-%release
+Provides:	MyODBC = %version-%release
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
@@ -47,14 +50,15 @@ mysql-connector-odbc 3.51 is an enhanced version of MyODBC 2.50 to meet
 ODBC 3.5 specification. The driver is commonly referred to as 'MySQL ODBC 3.51
 Driver'.
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Development library for ODBC driver for MySQL
 Group:		Development/C
 Provides:	lib%{name}-devel %{name}-devel libmyodbc-devel
 Obsoletes:	lib%{name}-devel %{name}-devel libmyodbc-devel
 Requires:	%{libname} = %{version}
+Obsoletes:	%{mklibname -d myodbc 1}
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 mysql-connector-odbc is an ODBC (3.50) level 0 (with level 1 and level 2
 features) driver for connecting an ODBC-aware application to MySQL.
 mysql-connector-odbc works on Windows NT/2000/XP, and most Unix platforms
@@ -84,7 +88,7 @@ find -type f -name "*.c*" -o -type f -name "*.h" | xargs perl -pi -e "s|libmyodb
 %build
 export WANT_AUTOCONF_2_5=1
 rm -f ./configure
-libtoolize --copy --force; aclocal-1.7; autoconf; automake-1.7 --foreign --add-missing --copy --force-missing
+libtoolize --copy --force; aclocal; autoconf; automake --foreign --add-missing --copy --force-missing
 
 %configure2_5x \
     --enable-shared \
@@ -203,7 +207,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/*.so
 %{_libdir}/*.a
