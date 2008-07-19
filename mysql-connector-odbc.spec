@@ -1,17 +1,21 @@
-%define	rev r857
+%define	rev r1127
 %define	major 1
 %define libname	%mklibname myodbc %{major}
 %define develname %mklibname mydobc -d
 
 Summary:	ODBC driver for MySQL
 Name:		mysql-connector-odbc
-Version:	3.51.22
-Release:	%mkrel 0.%{rev}.2
+Version:	3.51.26
+Release:	%mkrel 0.%{rev}.1
 License:	Public Domain
 Group:		System/Libraries
 URL:		http://www.mysql.com/downloads/api-myodbc.html
 Source0:	http://ftp.sunet.se/pub/unix/databases/relational/mysql/Downloads/MyODBC3/mysql-connector-odbc-%{version}%{rev}.tar.gz
+Source1:	dsn-editor.pro
 Patch0:		MyODBC-libname.diff
+Patch1:		myodbc-shutdown.patch
+Patch2:		mysql-connector-odbc-linkage_fix.diff
+Patch3:		mysql-connector-odbc-no_windoze.diff
 Requires:	unixODBC
 Requires:	usermode-consoleonly
 Requires:	%{libname} = %{version}
@@ -20,11 +24,12 @@ BuildRequires:	unixODBC-devel
 BuildRequires:	openssl-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
-BuildRequires:  libltdl-devel
-BuildRequires:  qt3-devel
+BuildRequires:	libltdl-devel
+BuildRequires:	libtool
+BuildRequires:	qt3-devel
 Obsoletes:	MyODBC < %version-%release
 Provides:	MyODBC = %version-%release
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 mysql-connector-odbc is an ODBC (3.50) level 0 (with level 1 and level 2
@@ -72,7 +77,11 @@ Driver'.
 
 %setup -q -n mysql-connector-odbc-%{version}%{rev}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p0
+%patch3 -p0
 
+cp %{SOURCE1} dsn-editor/dsn-editor.pro
 # lib64 fixes
 find -type f -name "*.c*" -o -type f -name "*.h" | xargs perl -pi -e "s|/usr/lib|%{_libdir}|g"
 
@@ -88,7 +97,7 @@ find -type f -name "*.c*" -o -type f -name "*.h" | xargs perl -pi -e "s|libmyodb
 %build
 export WANT_AUTOCONF_2_5=1
 rm -f ./configure
-libtoolize --copy --force; aclocal; autoconf; automake --foreign --add-missing --copy --force-missing
+libtoolize --copy --force; aclocal; automake --foreign --add-missing --copy --force-missing; autoconf
 
 %configure2_5x \
     --enable-shared \
@@ -110,12 +119,12 @@ libtoolize --copy --force; aclocal; autoconf; automake --foreign --add-missing -
 %make
 
 pushd dsn-editor
-    qmake dsn-editor.pro -o Makefile.qt
+    %{qt3dir}/bin/qmake dsn-editor.pro -o Makefile.qt
     %make -f Makefile.qt
 popd
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %makeinstall_std
 
@@ -191,7 +200,7 @@ EOF
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
@@ -212,3 +221,4 @@ EOF
 %{_libdir}/*.so
 %{_libdir}/*.a
 %{_libdir}/*.la
+
