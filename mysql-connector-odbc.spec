@@ -94,9 +94,9 @@ libtoolize --copy --force; aclocal; autoconf; automake --foreign --add-missing -
     --enable-shared \
     --enable-static \
     --enable-thread-safe \
-    --with-qt-dir=%{_prefix}/lib/qt3 \
-    --with-qt-includes=%{_prefix}/lib/qt3/include \
-    --with-qt-libraries=%{_prefix}/lib/qt3/%{_lib} \
+    --with-qt-dir=%{qt3dir} \
+    --with-qt-includes=%{qt3include} \
+    --with-qt-libraries=%{qt3lib} \
     --enable-dmlink \
     --enable-myodbcinst \
     --enable-imyodbc \
