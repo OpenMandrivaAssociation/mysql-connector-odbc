@@ -7,7 +7,9 @@ Summary:	ODBC driver for MySQL
 Name:		mysql-connector-odbc
 Version:	3.51.26
 Release:	%mkrel 0.%{rev}.1
-License:	Public Domain
+# exceptions allow library to be linked with most open source SW,
+# not only GPL code.
+License: GPLv2 with exceptions
 Group:		System/Libraries
 URL:		http://www.mysql.com/downloads/api-myodbc.html
 Source0:	http://ftp.sunet.se/pub/unix/databases/relational/mysql/Downloads/MyODBC3/mysql-connector-odbc-%{version}%{rev}.tar.gz
