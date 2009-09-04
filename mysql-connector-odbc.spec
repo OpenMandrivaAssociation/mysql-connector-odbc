@@ -3,7 +3,7 @@
 Summary:	ODBC driver for MySQL
 Name:		mysql-connector-odbc
 Version:	5.1.5
-Release:	%mkrel 0.%{rev}.1.1
+Release:	%mkrel 0.%{rev}.1.2
 # exceptions allow library to be linked with most open source SW,
 # not only GPL code.
 License: GPLv2 with exceptions
