@@ -27,14 +27,14 @@ Obsoletes:	%{mklibname myodbc 1} < %version
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-mysql-connector-odbc is an ODBC (3.50) level 0 (with level 1 and level 2
-features) driver for connecting an ODBC-aware application to MySQL.
-mysql-connector-odbc works on Windows NT/2000/XP, and most Unix platforms
-(incl. OSX and Linux).
+The MySQL Connector/ODBC is the name for the family of MySQL ODBC drivers
+(previously called MyODBC drivers) that provide access to a MySQL database
+using the industry standard Open Database Connectivity (ODBC) API.
 
-mysql-connector-odbc 3.51 is an enhanced version of MyODBC 2.50 to meet
-ODBC 3.5 specification. The driver is commonly referred to as 'MySQL ODBC 3.51
-Driver'.
+MySQL Connector/ODBC provides both driver-manager based and native
+interfaces to the MySQL database, which full support for MySQL functionality,
+including stored procedures, transactions and, with Connector/ODBC 5.1,
+full Unicode compliance.
 
 %package 	devel
 Summary:	Development library for ODBC driver for MySQL
@@ -46,14 +46,14 @@ Obsoletes:	%{mklibname -d myodbc 1} < %version
 Obsoletes:	%{mklibname -d mydobc} < %version
 
 %description devel
-mysql-connector-odbc is an ODBC (3.50) level 0 (with level 1 and level 2
-features) driver for connecting an ODBC-aware application to MySQL.
-mysql-connector-odbc works on Windows NT/2000/XP, and most Unix platforms
-(incl. OSX and Linux).
+The MySQL Connector/ODBC is the name for the family of MySQL ODBC drivers
+(previously called MyODBC drivers) that provide access to a MySQL database
+using the industry standard Open Database Connectivity (ODBC) API.
 
-mysql-connector-odbc 3.51 is an enhanced version of MyODBC 2.50 to meet
-ODBC 3.5 specification. The driver is commonly referred to as 'MySQL ODBC 3.51
-Driver'.
+MySQL Connector/ODBC provides both driver-manager based and native
+interfaces to the MySQL database, which full support for MySQL functionality,
+including stored procedures, transactions and, with Connector/ODBC 5.1,
+full Unicode compliance.
 
 %prep
 %setup -q -n mysql-connector-odbc-%{version}
