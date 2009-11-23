@@ -1,19 +1,16 @@
-%define	rev r1144
-
 Summary:	ODBC driver for MySQL
 Name:		mysql-connector-odbc
-Version:	5.1.5
-Release:	%mkrel 0.%{rev}.1.2
+Version:	5.1.6
+Release:	%mkrel 1
 # exceptions allow library to be linked with most open source SW,
 # not only GPL code.
 License: GPLv2 with exceptions
 Group:		System/Libraries
-URL:		http://www.mysql.com/downloads/api-myodbc.html
-Source0:	http://ftp.sunet.se/pub/unix/databases/relational/mysql/Downloads/MyODBC3/mysql-connector-odbc-%{version}%{rev}.tar.gz
+URL:		http://www.mysql.com/products/connector/
+Source0:	http://mir2.ovh.net/ftp.mysql.com/Downloads/Connector-ODBC/5.1/mysql-connector-odbc-%{version}.tar.gz
 Source1:	dsn-editor.pro
 Patch1:		myodbc-shutdown.patch
 Patch3:		mysql-connector-odbc-no_windoze.diff
-Patch4:		myodbc-my-bool.patch
 Patch5:		mysql-connector-odbc-5.1.5-fix-str-fmt.patch
 Requires:	unixODBC
 BuildRequires:	mysql-devel
@@ -59,10 +56,9 @@ ODBC 3.5 specification. The driver is commonly referred to as 'MySQL ODBC 3.51
 Driver'.
 
 %prep
-%setup -q -n mysql-connector-odbc-%{version}%{rev}
+%setup -q -n mysql-connector-odbc-%{version}
 %patch1 -p1
 %patch3 -p0
-%patch4 -p1
 %patch5 -p0
 
 %build
@@ -142,14 +138,6 @@ EOF
 %if %mdkversion < 200900
 %postun
 %clean_menus
-%endif
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
 %endif
 
 %clean
