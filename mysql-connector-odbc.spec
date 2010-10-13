@@ -1,7 +1,7 @@
 Summary:	ODBC driver for MySQL
 Name:		mysql-connector-odbc
-Version:	5.1.6
-Release:	%mkrel 2
+Version:	5.1.7
+Release:	%mkrel 1
 # exceptions allow library to be linked with most open source SW,
 # not only GPL code.
 License: GPLv2 with exceptions
@@ -20,7 +20,7 @@ BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool
-BuildRequires:	qt3-devel
+BuildRequires:	qt4-devel
 Obsoletes:	MyODBC < %version-%release
 Provides:	MyODBC = %version-%release
 Obsoletes:	%{mklibname myodbc 1} < %version
@@ -63,14 +63,15 @@ full Unicode compliance.
 
 %build
 export CFLAGS="%{optflags} -fno-strict-aliasing"
+export CPPFLAGS="-I%{qt4include}/Qt"
 
 %configure2_5x \
     --enable-shared \
     --enable-static \
     --enable-gui \
-    --with-qt-dir=%{qt3dir} \
-    --with-qt-includes=%{qt3include} \
-    --with-qt-libraries=%{qt3lib} \
+    --with-qt-dir=%{qt4dir} \
+    --with-qt-includes=%{qt4include} \
+    --with-qt-libraries=%{qt4lib} \
     --enable-dmlink \
     --enable-myodbc-installer \
     --enable-odbcinstlink \
@@ -145,7 +146,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog LICENSE.exceptions LICENSE.gpl README README.debug README.Mandriva
+%doc ChangeLog LICENSE.gpl README README.debug README.Mandriva
 %{_bindir}/*
 %{_libdir}/libmyodbc3S-%version.so
 %{_libdir}/libmyodbc5-%version.so
