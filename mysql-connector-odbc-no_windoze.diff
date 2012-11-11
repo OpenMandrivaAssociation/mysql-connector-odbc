@@ -1,0 +1,11 @@
+--- MYODBC_ODBC.h	2008-07-19 17:15:17.000000000 +0200
++++ MYODBC_ODBC.h.oden	2008-07-19 17:17:44.000000000 +0200
+@@ -25,7 +25,7 @@
+ #  define SQL_API
+ # endif
+ #else
+-# include <windows.h>
++/* # include <windows.h> */
+ # ifndef RC_INVOKED
+ #  pragma pack(1)
+ # endif
