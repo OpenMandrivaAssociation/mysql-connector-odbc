@@ -6,7 +6,7 @@ Release:	%mkrel 1
 # not only GPL code.
 License: GPLv2 with exceptions
 Group:		System/Libraries
-URL:		http://www.mysql.com/products/connector/
+URL:		https://www.mysql.com/products/connector/
 Source0:	http://mir2.ovh.net/ftp.mysql.com/Downloads/Connector-ODBC/5.1/mysql-connector-odbc-%{version}.tar.gz
 Source1:	dsn-editor.pro
 Patch1:		myodbc-shutdown.patch
